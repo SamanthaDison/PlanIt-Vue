@@ -1,0 +1,16 @@
+
+  {
+    "name": "planit-vue",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:server",
+      "setup:app": "npm run setup:server && npm run setup:client",
+      "setup:client": "cd PlanIt-Vue.client && npm i",
+      "setup:server": "cd PlanIt-Vue && npm i",
+      "start": "node PlanIt-Vue/index.js"
+    },
+    "engines": {
+      "node": "^14.17.0"
+    }
+  }
+  

@@ -7,30 +7,48 @@ export class ProjectsController extends BaseController {
         super('api/projects')
         this.router
             .use(Auth0Provider.getAuthorizedUserInfo)
-            .get('', this.getAll)
-            .get('/:id', this.getById)
-        // .post('', this.create)
-        // .put('/:id', this.edit)
-        // .delete('/:id', this.remove)
-
+            .get('', this.getAllProjects)
+            .get('/:id', this.getProjectById)
+            .post('', this.createProject)
+            .delete('/:id', this.removeProject)
     }
 
-    async getAll(req, res, next) {
+    async getAllProjects(req, res, next) {
         try {
-            const projects = await projectsService.getAll()
+            const projects = await projectsService.getAllProjects({ creatorId: req.userInfo.id })
             res.send(projects)
         } catch (error) {
             next(error)
         }
     }
 
-    async getById(req, res, next) {
+    async getProjectById(req, res, next) {
         try {
-
+            const foundProject = await projectsService.getProjectById(req.params.id)
+            res.send(foundProject)
         } catch (error) {
-
+            next(error)
         }
     }
 
+    async createProject(req, res, next) {
+        try {
+            req.body.creatorId = req.userInfo.id
+            const createdProject = await projectsService.createProject(req.body)
+            res.send(createdProject)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async removeProject(req, res, next) {
+        try {
+            const deletedProject = await projectsService.removeProject(req.params.id, req.userInfo.id)
+            res.send(deletedProject)
+        } catch (error) {
+            next(error)
+        }
+    }
 
 }
+

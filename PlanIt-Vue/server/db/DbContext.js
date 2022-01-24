@@ -1,4 +1,4 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 import { AccountSchema, ProfileSchema } from '../models/Account'
 import { ValueSchema } from '../models/Value'
 import { ProjectSchema } from '../models/Project'
@@ -17,7 +17,7 @@ class DbContext {
 
   Tasks = mongoose.model('Task', TaskSchema);
 
-  Notes = mongoose.model('Note', NoteSchema)
+  Notes = mongoose.model('Note', NoteSchema);
 
 }
 

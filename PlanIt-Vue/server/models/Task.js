@@ -10,4 +10,13 @@ export const TaskSchema = new Schema({
     creatorId: { type: Schema.Types.ObjectId, ref: 'Profile', required: true },
     isComplete: { type: Boolean, required: true }
 
+},
+    { timestamps: true, toJSON: { virtuals: true } }
+)
+
+TaskSchema.virtual('creator', {
+    localField: 'creatorId',
+    foreignField: '_id',
+    ref: 'Profile',
+    justOne: true
 })

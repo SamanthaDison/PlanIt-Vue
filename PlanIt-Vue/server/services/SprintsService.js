@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext";
-import { BadRequest } from "../utils/Errors";
+import { BadRequest, Forbidden } from "../utils/Errors";
 
 class SprintsService {
 
@@ -13,6 +13,10 @@ class SprintsService {
         return sprints
     }
     async createSprint(newSprint) {
+        const project = await dbContext.Projects.findById(newSprint.projectId)
+        if (project.creatorId.toString() !== newSprint.creatorId) {
+            throw new Forbidden('not your project')
+        }
         const createdSprint = await dbContext.Sprints.create(newSprint)
         await createdSprint.populate('creator', 'name picture')
         return createdSprint

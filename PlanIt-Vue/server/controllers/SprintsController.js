@@ -13,7 +13,7 @@ export class SprintsController extends BaseController {
 
     async getSprints(req, res, next) {
         try {
-            const sprints = await sprintsService.getSprints({ creatorId: req.userInfo.id })
+            const sprints = await sprintsService.getSprints(req.params.id)
             res.send(sprints)
         } catch (error) {
             next(error)
@@ -32,7 +32,7 @@ export class SprintsController extends BaseController {
 
     async removeSprint(req, res, next) {
         try {
-            const deletedSprint = await sprintsService.remove(req.params.id, req.userInfo.id)
+            const deletedSprint = await sprintsService.removeSprint(req.params.id, req.userInfo.id)
             res.send(deletedSprint)
         } catch (error) {
             next(error)

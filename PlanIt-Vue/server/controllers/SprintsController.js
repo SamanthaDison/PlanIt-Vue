@@ -8,7 +8,7 @@ export class SprintsController extends BaseController {
             .use(Auth0Provider.getAuthorizedUserInfo)
             .get('', this.getSprints)
             .post('', this.createSprint)
-            .delete('/:sprintId', this.removeSprint)
+            .delete('/:id', this.removeSprint)
     }
 
     async getSprints(req, res, next) {

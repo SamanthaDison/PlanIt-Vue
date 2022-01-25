@@ -26,7 +26,7 @@ class TasksService {
 
     async removeTask(taskId, creatorId) {
         const foundTask = await dbContext.Tasks.findById(taskId).populate('creator', 'name picture')
-        if (foundTask.creatorId.toString() !== creatorId) {
+        if (foundTask.creator.id.toString() !== creatorId) {
             throw new BadRequest('Unable top delete sprint')
         }
         await foundTask.remove()

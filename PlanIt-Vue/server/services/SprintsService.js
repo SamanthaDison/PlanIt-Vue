@@ -20,7 +20,7 @@ class SprintsService {
 
     async removeSprint(sprintId, creatorId) {
         const foundSprint = await dbContext.Sprints.findById(sprintId).populate('creator', 'name picture')
-        if (foundSprint.creator.id.toString() !== creatorId) {
+        if (foundSprint.creatorId.toString() !== creatorId) {
             throw new BadRequest('Unable top delete sprint')
         }
         await foundSprint.remove()

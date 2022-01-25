@@ -17,7 +17,16 @@
       <span class="navbar-toggler-icon" />
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto"></ul>
+      <ul class="navbar-nav me-auto">
+        <li>
+          <router-link
+            :to="{ name: 'Projects' }"
+            class="btn text-success lighten-30 selectable text-uppercase"
+          >
+            My Projects
+          </router-link>
+        </li>
+      </ul>
       <span class="navbar-text">
         <button
           class="

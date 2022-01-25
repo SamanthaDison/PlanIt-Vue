@@ -1,49 +1,40 @@
 <template>
-  <div
-    class="
-      home
-      flex-grow-1
-      d-flex
-      flex-column
-      align-items-center
-      justify-content-center
-    "
-  >
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      />
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Let's Get Planning!
-      </h1>
+  <div class="row">
+    <div v-if="account.id" class="col-md-12 p-5">
+      <div class="card">
+        <div class="d-flex justify-content-between p-4">
+          <h1>My Projects</h1>
+          <button>Create Project</button>
+        </div>
+        <div class="d-flex justify-content-around">
+          <p>NAME</p>
+          <p>START DATE</p>
+        </div>
+        <div class="text-center">PROJECTS V-FOR HERE</div>
+      </div>
+    </div>
+    <div v-else>
+      <p>LOG IN HERE</p>
     </div>
   </div>
 </template>
 
 <script>
+import { computed } from '@vue/reactivity';
+import { AppState } from '../AppState';
 export default {
-  name: 'Home'
+  setup() {
+    return {
+      account: computed(() => AppState.account)
+    }
+      ;
+  }
+
 }
 </script>
 
-<style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-  .home-card {
-    width: 50vw;
-    > img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+<style>
+.card {
+  min-height: 80vh;
 }
 </style>

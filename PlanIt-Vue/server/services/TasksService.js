@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext";
-import { BadRequest } from "../utils/Errors";
+import { BadRequest, Forbidden } from "../utils/Errors";
 
 class TasksService {
 
@@ -9,6 +9,10 @@ class TasksService {
     }
 
     async createTask(newTask) {
+        const project = await dbContext.Projects.findById(newTask.projectId)
+        if (project.creatorId.toString() !== newTask.creatorId) {
+            throw new Forbidden('not your project')
+        }
         const createdTask = await dbContext.Tasks.create(newTask)
         await createdTask.populate('creator', 'name picture')
         return createdTask

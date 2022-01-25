@@ -17,6 +17,7 @@ class ProjectsService {
 
     async createProject(newProject) {
         const createdProject = await dbContext.Projects.create(newProject)
+        await createdProject.populate('creator', 'name picture')
         return createdProject
     }
 

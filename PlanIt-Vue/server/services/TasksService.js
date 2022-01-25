@@ -21,7 +21,7 @@ class TasksService {
 
     async editTask(updated) {
         const original = await dbContext.Tasks.findById(updated.id).populate('creator', 'name picture')
-        if (original.creator.id !== updated.creatorId) {
+        if (original.creatorId.toString() !== updated.creatorId) {
             throw new BadRequest('Unable to edit')
         }
         original.name = updated.name || original.name

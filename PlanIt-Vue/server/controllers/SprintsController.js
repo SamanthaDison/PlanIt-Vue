@@ -23,6 +23,7 @@ export class SprintsController extends BaseController {
     async createSprint(req, res, next) {
         try {
             req.body.creatorId = req.userInfo.id
+            req.body.projectId = req.params.projectId
             const createdSprint = await sprintsService.createSprint(req.body)
             res.send(createdSprint)
         } catch (error) {
@@ -32,6 +33,7 @@ export class SprintsController extends BaseController {
 
     async removeSprint(req, res, next) {
         try {
+            req.body.creatorId = req.userInfo.id
             const deletedSprint = await sprintsService.removeSprint(req.params.id, req.userInfo.id)
             res.send(deletedSprint)
         } catch (error) {

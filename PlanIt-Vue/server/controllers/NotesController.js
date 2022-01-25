@@ -1,6 +1,5 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { notesService } from '../services/NotesServices'
-
 import BaseController from '../utils/BaseController'
 
 export class NotesController extends BaseController {

@@ -1,8 +1,10 @@
 import { dbContext } from '../db/DbContext'
+import { logger } from '../utils/Logger'
 import { BadRequest, Forbidden } from '../utils/Errors'
 
 class NotesService {
-    async getNotes(query = {}) {
+
+    async getAll(query = {}) {
         return await dbContext.Notes.find(query).populate('creator', 'name')
     }
 
@@ -22,7 +24,7 @@ class NotesService {
     async remove(noteId, userId) {
         const note = await this.getById(noteId)
         if (note.creatorId.toString() !== userId) {
-            throw new Forbidden('You may not delete this note')
+            throw new Forbidden('You are not aloud to delete this note')
         }
         await dbContext.Notes.findByIdAndDelete(noteId)
     }
@@ -30,7 +32,7 @@ class NotesService {
     async edit(body) {
         const note = await this.getById(body.id)
         if (note.creatorId.toString() !== body.creatorId) {
-            throw new Forbidden('You may not edit this note')
+            throw new Forbidden('You are not aloud to edit this note')
         }
         const updateNote = dbContext.Notes.findOneAndUpdate({ _id: body.id }, body, { new: true })
         return await updateNote

@@ -14,12 +14,17 @@ class TasksService {
         return createdTask
     }
 
+
     async editTask(updated) {
         const original = await dbContext.Tasks.findById(updated.id).populate('creator', 'name picture')
         if (original.creator.id !== updated.creatorId) {
             throw new BadRequest('Unable to edit')
         }
-        original.task = updated.task || original.task
+        original.name = updated.name || original.name
+        original.weight = updated.weight || original.weight
+        original.sprintId = updated.sprintId || original.sprintId
+        original.isComplete = updated.isComplete || original.isComplete
+
         await original.save()
         return original
     }

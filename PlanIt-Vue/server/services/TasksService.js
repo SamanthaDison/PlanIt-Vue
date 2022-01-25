@@ -19,18 +19,18 @@ class TasksService {
     }
 
 
-    async editTask(updated) {
-        const original = await dbContext.Tasks.findById(updated.id).populate('creator', 'name picture')
-        if (original.creatorId.toString() !== updated.creatorId) {
+    async editTask(taskId, updatedTask) {
+        const taskToEdit = await dbContext.Tasks.findById(taskId).populate('creator', 'name picture')
+        if (taskToEdit.creatorId.toString() !== updatedTask.creatorId) {
             throw new BadRequest('Unable to edit')
         }
-        original.name = updated.name || original.name
-        original.weight = updated.weight || original.weight
-        original.sprintId = updated.sprintId || original.sprintId
-        original.isComplete = updated.isComplete || original.isComplete
+        taskToEdit.name = updatedTask.name || taskToEdit.name
+        taskToEdit.weight = updatedTask.weight || taskToEdit.weight
+        taskToEdit.sprintId = updatedTask.sprintId || taskToEdit.sprintId
+        taskToEdit.isComplete = updatedTask.isComplete || taskToEdit.isComplete
 
-        await original.save()
-        return original
+        await taskToEdit.save()
+        return taskToEdit
     }
 
     async removeTask(taskId, creatorId) {

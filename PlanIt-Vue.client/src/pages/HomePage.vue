@@ -2,15 +2,20 @@
   <div class="row">
     <div v-if="account.id" class="col-md-12 p-5">
       <div class="card">
-        <div class="d-flex justify-content-between p-4">
-          <h1>My Projects</h1>
-          <button>Create Project</button>
-        </div>
-        <div class="d-flex justify-content-around">
-          <p>NAME</p>
-          <p>START DATE</p>
-        </div>
-        <div class="text-center">PROJECTS V-FOR HERE</div>
+        <table>
+          <tr>
+            <th>NAME</th>
+            <th>CREATED</th>
+          </tr>
+          <tr v-for="p in projects" :key="p.id">
+            <td>
+              <router-link :to="{ name: 'Project', params: { id: p.id } }">{{
+                p.name
+              }}</router-link>
+            </td>
+            <td>{{ p.createdAt }}</td>
+          </tr>
+        </table>
       </div>
     </div>
     <div v-else>
@@ -22,10 +27,21 @@
 <script>
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState';
+import { projectsService } from "../services/ProjectsService"
+import { onMounted } from '@vue/runtime-core';
+import Pop from '../utils/Pop';
 export default {
   setup() {
+    onMounted(async () => {
+      try {
+        await projectsService.getAllProjects()
+      } catch (error) {
+        Pop.toast(error.message, "error")
+      }
+    })
     return {
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      projects: computed(() => AppState.projects)
     }
       ;
   }
@@ -38,3 +54,6 @@ export default {
   min-height: 80vh;
 }
 </style>
+
+
+v-if="account.id"

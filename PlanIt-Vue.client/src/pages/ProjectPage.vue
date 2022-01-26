@@ -1,5 +1,5 @@
 <template>
-  {{ project.name }}
+  <p>Hello from the project page</p>
 </template>
 
 <script>

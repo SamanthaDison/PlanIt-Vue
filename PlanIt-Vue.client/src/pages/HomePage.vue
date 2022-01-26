@@ -61,13 +61,6 @@ import { AuthService } from '../services/AuthService';
 import Pop from '../utils/Pop';
 export default {
   setup() {
-    onMounted(async () => {
-      try {
-        await projectsService.getAllProjects()
-      } catch (error) {
-        // Pop.toast(error.message, "error")
-      }
-    })
     return {
       account: computed(() => AppState.account),
       projects: computed(() => AppState.projects),

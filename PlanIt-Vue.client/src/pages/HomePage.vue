@@ -14,6 +14,7 @@
               }}</router-link>
             </td>
             <td>{{ p.createdAt }}</td>
+            <!-- Need to format this so not raw data -->
           </tr>
         </table>
       </div>
@@ -54,6 +55,3 @@ export default {
   min-height: 80vh;
 }
 </style>
-
-
-v-if="account.id"

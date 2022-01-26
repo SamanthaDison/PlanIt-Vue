@@ -2,13 +2,17 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-     <img class="planetImg" src="https://www.freeiconspng.com/thumbs/planet-icon/planet-icon-8.png" alt="">
+        <img
+          class="planetImg"
+          src="https://www.freeiconspng.com/thumbs/planet-icon/planet-icon-8.png"
+          alt=""
+        />
       </div>
-      <div  class="d-flex flex-column align-items-center" >
+      <div class="d-flex flex-column align-items-center">
         <router-link :to="{ name: 'Home' }" class="btn lighten-30">
-            <h2 class="planItText">Plan-It</h2>
-          </router-link>
-    </div>
+          <h2 class="planItText">Plan-It</h2>
+        </router-link>
+      </div>
     </router-link>
     <button
       class="navbar-toggler"
@@ -110,11 +114,9 @@ export default {
 </script>
 
 <style scoped>
-
 .planetImg {
   height: 80px;
 }
-
 
 .hoverable {
   cursor: pointer;
@@ -134,5 +136,6 @@ a:hover {
 .navbar {
   background: rgb(226, 185, 238);
   background: radial-gradient(circle, #dfaeee 0%, #79d0f3 100%);
+  /* Is there a way to make navbar blend with background smoother? */
 }
 </style>

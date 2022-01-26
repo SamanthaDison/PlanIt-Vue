@@ -1,9 +1,14 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+     <img class="planetImg" src="https://www.freeiconspng.com/thumbs/planet-icon/planet-icon-8.png" alt="">
       </div>
+      <div  class="d-flex flex-column align-items-center" >
+        <router-link :to="{ name: 'Home' }" class="btn lighten-30">
+            <h2 class="planItText">Plan-It</h2>
+          </router-link>
+    </div>
     </router-link>
     <button
       class="navbar-toggler"
@@ -105,15 +110,12 @@ export default {
 </script>
 
 <style scoped>
-.dropdown-menu {
-  user-select: none;
-  display: block;
-  transform: scale(0);
-  transition: all 0.15s linear;
+
+.planetImg {
+  height: 80px;
 }
-.dropdown-menu.show {
-  transform: scale(1);
-}
+
+
 .hoverable {
   cursor: pointer;
 }
@@ -127,5 +129,10 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.navbar {
+  background: rgb(226, 185, 238);
+  background: radial-gradient(circle, #dfaeee 0%, #79d0f3 100%);
 }
 </style>

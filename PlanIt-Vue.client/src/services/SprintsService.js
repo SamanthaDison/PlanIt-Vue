@@ -4,12 +4,12 @@ import { logger } from "../utils/Logger";
 
 
 class SprintsService {
-    async getAll(projectId) {
+    async getAllSprints(projectId) {
         const res = await api.get(`api/projects/${projectId}/sprints`)
         logger.log(res.data, 'Sprints')
         AppState.sprints = res.data
     }
-    async create(projectId, sprintId) {
+    async createSprint(projectId, sprintId) {
         const res = await api.post(`api/projects/${projectId}/sprints/`, sprintId)
         AppState.sprints.unshift(res.data)
     }
@@ -18,7 +18,7 @@ class SprintsService {
     //     logger.log(res.data)
     //     AppState.sprints = res.data
     // }
-    async remove(sprintId, projectId) {
+    async removeSprint(sprintId, projectId) {
         const res = await api.delete(`api/projects/${projectId}/sprints/${sprintId}`)
         logger.log(res.data)
         AppState.sprints.filter(s => s.sprintId !== sprintId)

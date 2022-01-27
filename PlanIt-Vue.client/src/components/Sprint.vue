@@ -14,8 +14,8 @@
             <p>Task Counter here</p>
           </div>
         </div>
-        <div class="row">
-          <p>TASKS HERE</p>
+        <div class="row p-2 pt-3">
+          <Task v-for="t in tasks" :key="t.id" :task="t" />
         </div>
       </div>
     </div>
@@ -51,14 +51,14 @@ export default {
     })
     return {
       tasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id)),
-      totalWeight: computed(() => {
+      // totalWeight: computed(() => {
 
-        // set total variable
-        // itterate over tasks
-        // add tasks that are not complete to the total
-        // return total
-      }),
-      completedTasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id && t.isCompleted))
+      // set total variable
+      // itterate over tasks
+      // add tasks that are not complete to the total
+      // return total
+      // }),
+      // completedTasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id && t.isCompleted))
     }
   }
 }

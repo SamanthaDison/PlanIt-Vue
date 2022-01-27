@@ -18,7 +18,7 @@ class TasksService {
         AppState.tasks.unshift(res.data)
     }
 
-    async removeTask(taskId, projectId) {
+    async removeTask(taskId) {
         const res = await api.delete(`api/projects/${projectId}/tasks/${taskId}`)
         AppState.tasks.filter(t => t.taskId !== taskId)
         AppState.tasks = AppState.tasks

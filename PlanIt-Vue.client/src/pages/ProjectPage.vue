@@ -25,16 +25,28 @@
           <div class="d-flex justify-content-between pt-3">
             <h4>Sprints</h4>
 
-            <button class="mx-5">Add Sprint</button>
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#add-sprint"
+              class="mx-5"
+            >
+              Add Sprint
+            </button>
           </div>
           <div class="row pt-2">
-            <Sprints v-for="s in sprints" :key="s.id" :sprint="s" />
+            <Sprint v-for="s in sprints" :key="s.id" :sprint="s" />
           </div>
         </div>
       </div>
     </div>
     <div class="col-1"></div>
   </div>
+  <Modal id="add-sprint">
+    <template #modal-title> {{ project.name }} > Add Sprint</template>
+    <template #modal-body>
+      <!-- <NewSprintForm :projectId="activeProject.id" /> -->
+    </template>
+  </Modal>
 </template>
 
 <script>
@@ -43,6 +55,7 @@ import { useRoute } from "vue-router";
 import { sprintsService } from "../services/SprintsService";
 import { AppState } from "../AppState";
 import { projectsService } from '../services/ProjectsService';
+import Pop from '../utils/Pop';
 
 export default {
   setup() {
@@ -50,11 +63,18 @@ export default {
     watchEffect(async () => {
       if (route.name == "Project")
         await projectsService.getProjectsById(route.params.id);
-      await sprintsService.getAll(route.params.id);
+      await sprintsService.getAllSprints(route.params.id);
     })
     return {
       sprints: computed(() => AppState.sprints),
-      activeProject: computed(() => AppState.activeProject)
+      activeProject: computed(() => AppState.activeProject),
+      async createTask() {
+        try {
+          await sprintsService.createSprint()
+        } catch (error) {
+          Pop.toast("New Sprint Created")
+        }
+      }
     };
   }
 

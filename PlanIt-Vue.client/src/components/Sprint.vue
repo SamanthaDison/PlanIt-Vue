@@ -5,7 +5,7 @@
         <div class="col-12 d-flex justify-content-between">
           <div class="d-flex p-1">
             <h2>{{ sprint.name }}</h2>
-            <p>task counter here</p>
+            <p>totalweight here</p>
           </div>
           <div class="d-flex p-1">
             <button data-bs-toggle="modal" data-bs-target="#add-task">
@@ -56,6 +56,9 @@ export default {
     })
     return {
       tasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id)),
+      completedTasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id && t.isCompleted)),
+      uncompletedTasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id && !t.isCompleted)),
+      totalWeight: computed(() => AppState.tasks.weight.reduce((prev, cur) => prev + cur)),
       async removeSprint(sprintId) {
         try {
           await sprintsService.removeSprint(route.params.id, sprintId)
@@ -70,7 +73,6 @@ export default {
       // add tasks that are not complete to the total
       // return total
       // }),
-      // completedTasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id && t.isCompleted))
     }
   }
 }

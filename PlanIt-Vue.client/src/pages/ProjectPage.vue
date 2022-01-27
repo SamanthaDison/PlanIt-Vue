@@ -17,7 +17,10 @@
           <div>
             <h1>
               {{ activeProject.name }}
-              <i @click="removeProject()" class="mdi mdi-close ps-3"></i>
+              <i
+                @click="removeProject()"
+                class="mdi mdi-close selectable ps-3"
+              ></i>
             </h1>
 
             <p>{{ activeProject.description }}</p>

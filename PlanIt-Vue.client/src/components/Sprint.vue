@@ -5,7 +5,7 @@
         <div class="col-12 d-flex justify-content-between">
           <div class="d-flex p-1">
             <h2>{{ sprint.name }}</h2>
-            <p>totalweight here</p>
+            <p>totalweight</p>
           </div>
           <div class="d-flex p-1">
             <button data-bs-toggle="modal" data-bs-target="#add-task">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <i
-        @click="removeSprint(sprint.id)"
+        @click="removeSprint()"
         class="selectable mdi mdi-trash-can-outline text-end fs-3"
       ></i>
     </div>
@@ -61,7 +61,7 @@ export default {
       totalWeight: computed(() => AppState.tasks.weight.reduce((prev, cur) => prev + cur)),
       async removeSprint(sprintId) {
         try {
-          await sprintsService.removeSprint(route.params.id, sprintId)
+          await sprintsService.removeSprint(route.params.id, props.sprint.id)
         } catch (error) {
           Pop.toast(error.message, "error")
         }

@@ -9,8 +9,8 @@ class SprintsService {
         logger.log(res.data, 'Sprints')
         AppState.sprints = res.data
     }
-    async createSprint(projectId, sprintId) {
-        const res = await api.post(`api/projects/${projectId}/sprints/`, sprintId)
+    async createSprint(projectId, newSprint) {
+        const res = await api.post(`api/projects/${projectId}/sprints/`, newSprint)
         AppState.sprints.unshift(res.data)
     }
     // async getSprintById(projectId, sprintId) {

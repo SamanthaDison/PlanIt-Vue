@@ -17,7 +17,7 @@
           <div>
             <h1>
               {{ activeProject.name }}
-              <i class="mdi mdi-close ps-3"></i>
+              <i @click="removeProject()" class="mdi mdi-close ps-3"></i>
             </h1>
 
             <p>{{ activeProject.description }}</p>
@@ -41,25 +41,27 @@
     </div>
     <div class="col-1"></div>
   </div>
-  <Modal id="add-sprint">
+  <!-- <Modal id="add-sprint">
     <template #modal-title> {{ project.name }} > Add Sprint</template>
     <template #modal-body>
-      <!-- <NewSprintForm :projectId="activeProject.id" /> -->
+      <NewSprintForm :projectId="project.id"/>
     </template>
-  </Modal>
+  </Modal> -->
 </template>
 
 <script>
 import { computed, watchEffect } from "@vue/runtime-core";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { sprintsService } from "../services/SprintsService";
 import { AppState } from "../AppState";
 import { projectsService } from '../services/ProjectsService';
 import Pop from '../utils/Pop';
 
+
 export default {
   setup() {
     const route = useRoute();
+    const router = useRouter();
     watchEffect(async () => {
       if (route.name == "Project")
         await projectsService.getProjectsById(route.params.id);
@@ -68,11 +70,14 @@ export default {
     return {
       sprints: computed(() => AppState.sprints),
       activeProject: computed(() => AppState.activeProject),
-      async createTask() {
+      async removeProject() {
         try {
-          await sprintsService.createSprint()
+          await projectsService.removeProject(route.params.id)
+          router.push({
+            name: "Home"
+          })
         } catch (error) {
-          Pop.toast("New Sprint Created")
+          Pop.toast(error.message, "error")
         }
       }
     };

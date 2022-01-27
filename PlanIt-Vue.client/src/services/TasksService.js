@@ -13,8 +13,8 @@ class TasksService {
     //     const res = await api.get(`api/projects/${projectId}/tasks/${taskId}`)
     //     AppState.tasks = res.data
     // }
-    async createTask(projectId, taskId) {
-        const res = await api.post(`api/projects/${projectId}/tasks`, taskId)
+    async createTask(projectId, newTask) {
+        const res = await api.post(`api/projects/${projectId}/tasks`, newTask)
         AppState.tasks.unshift(res.data)
     }
 

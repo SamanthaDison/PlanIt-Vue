@@ -18,6 +18,10 @@
           <Task v-for="t in tasks" :key="t.id" :task="t" />
         </div>
       </div>
+      <i
+        @click="removeSprint(sprint.id)"
+        class="selectable mdi mdi-trash-can-outline text-end fs-3"
+      ></i>
     </div>
   </div>
   <Modal id="add-task">
@@ -35,6 +39,7 @@ import { computed, onMounted } from "@vue/runtime-core";
 import Pop from '../utils/Pop';
 import { tasksService } from '../services/TasksService';
 import { useRoute } from 'vue-router';
+import { sprintsService } from '../services/SprintsService';
 
 
 
@@ -51,6 +56,13 @@ export default {
     })
     return {
       tasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id)),
+      async removeSprint(sprintId) {
+        try {
+          await sprintsService.removeSprint(route.params.id, sprintId)
+        } catch (error) {
+          Pop.toast(error.message, "error")
+        }
+      }
       // totalWeight: computed(() => {
 
       // set total variable

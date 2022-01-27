@@ -1,43 +1,40 @@
 <template>
-<div class="row ">
-  <div class="col-1">
-    <div class="position-fixed my-3">
-
-<div class="selectable bg-dark my-1">
-<i class=" fs-1 mdi mdi-cat p-4 "></i>
-</div>
-
-<div class="selectable bg-secondary">
-<i class="fs-1 mdi mdi-cat p-4"></i>
-</div>
-
-
+  <div class="row">
+    <div class="col-1">
+      <div class="position-fixed my-3">
+        <div class="selectable bg-dark my-1">
+          <i class="fs-1 mdi mdi-cat p-4"></i>
+        </div>
+        <div class="selectable bg-secondary mt-2">
+          <i class="fs-1 mdi mdi-cat p-4"></i>
+        </div>
+      </div>
     </div>
 
+    <div class="col-10 mt-4 px-2 ms-5" v-if="activeProject">
+      <div class="card p-4">
+        <div class="row">
+          <div>
+            <h1>
+              {{ activeProject.name }}
+              <i class="mdi mdi-close ps-3"></i>
+            </h1>
+
+            <p>{{ activeProject.description }}</p>
+          </div>
+          <div class="d-flex justify-content-between pt-3">
+            <h4>Sprints</h4>
+
+            <button class="mx-5">Add Sprint</button>
+          </div>
+          <div class="row pt-2">
+            <Sprints v-for="s in sprints" :key="s.id" :sprint="s" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-1"></div>
   </div>
-  <div class="col-1">
-
-  </div>
-  <div class="col-9 mt-4">
-  <div>
-  <h1>Project Name</h1>
- <p>Project Description</p>
- </div>
- <div class="d-flex justify-content-between">
-  <h1>Sprints</h1>
- <button class="mx-5">Add Sprint</button>
- </div>
-   </div>
-   <div class="col-1">
-
-   </div>
-    
- <div class="row"> 
-
-  <Sprint v-for="s in sprints" :key="s.id" :sprint="s"/>
-</div>
-
-</div>
 </template>
 
 <script>
@@ -45,16 +42,19 @@ import { computed, watchEffect } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { sprintsService } from "../services/SprintsService";
 import { AppState } from "../AppState";
+import { projectsService } from '../services/ProjectsService';
 
 export default {
   setup() {
-     const route = useRoute();
-     watchEffect(async () => {
-       if (route.name == "Project")
-        await sprintsService.getAll(route.params.id);
-     })
+    const route = useRoute();
+    watchEffect(async () => {
+      if (route.name == "Project")
+        await projectsService.getProjectsById(route.params.id);
+      await sprintsService.getAll(route.params.id);
+    })
     return {
-      sprints: computed(() => AppState.sprints)
+      sprints: computed(() => AppState.sprints),
+      activeProject: computed(() => AppState.activeProject)
     };
   }
 
@@ -63,3 +63,4 @@ export default {
 
 <style>
 </style>
+

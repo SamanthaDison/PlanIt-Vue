@@ -13,8 +13,7 @@
                 p.name
               }}</router-link>
             </td>
-            <td>{{ p.createdAt }}</td>
-            <!-- Need to format this so not raw data -->
+            <td>{{ new Date(p.createdAt).toLocaleString() }}</td>
           </tr>
         </table>
       </div>
